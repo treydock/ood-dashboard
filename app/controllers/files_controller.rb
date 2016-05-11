@@ -2,7 +2,7 @@ class FilesController < ApplicationController
   def index
   end
 
-  def view
+  def show
   end
 
   def edit
