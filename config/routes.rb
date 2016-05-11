@@ -1,7 +1,8 @@
 Dashboard::Application.routes.draw do
-  get "files/index"
-  get "files/view"
-  get "files/edit"
+  resource :files
+  get "files/fs/*path" => "files#index", :defaults => { :path => "/" }
+  get "files/fs" => "files#index", :defaults => { :path => "/" }
+
   get "apps/:owner/:app_name" => "app#show", as: "app"
   get "dashboard/index"
   root "dashboard#index"
