@@ -18,13 +18,29 @@
 //= require_tree .
 
 (function(){
+
   window.current_dir = "";
   // does datatable store the original
   var init_table = function(url){
     window.files_table = $('#files').DataTable({
-      // "sAjaxSource": "https://websvcs08.osc.edu/pun/dev/files/api/v1/fs/nfs/17/efranz/",
-      "sAjaxSource": url,
-      "sAjaxDataProp": "files",
+      "ajax" : {
+        "url" : url,
+        "dataSrc" : function(json){
+          window.current_dir = json.path;
+          $("h1").text(current_dir);
+
+          json.files.unshift({
+            "name": "..",
+            "size": "dir",
+            "date": "",
+            "owner": "",
+            "mode":""
+          });
+          return json.files;
+        }
+      },
+      // "sAjaxSource": url,
+      // "sAjaxDataProp": "files",
       "paging": false,
       "columns": [
         {class: "name", data: "name"},
@@ -50,14 +66,7 @@
     $('#files tbody').on( 'dblclick', 'tr', function () {
       var d = files_table.row(this).data()
       if(d.size == "dir"){
-        console.log("open directory: " + d.name);
-
-        if(d.name == ".."){
-          console.log("open parent directory");
-        }
-        else{
-          cloudcmd(current_dir + "/" + d.name);
-        }
+        cloudcmd(posix.join(current_dir, d.name))
       }
       else{
         console.log("view file: " + d.name);
@@ -75,7 +84,6 @@
     else{
       files_table.ajax.url(url).load();
     }
-    window.current_dir = path;
   }
 
 
