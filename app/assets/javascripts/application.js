@@ -17,16 +17,71 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require_tree .
 
-$(document).ready(function(){
-  $('#files').DataTable({
-    "sAjaxSource": "https://websvcs08.osc.edu/pun/dev/files/api/v1/fs/nfs/17/efranz/",
-    "sAjaxDataProp": "files",
-    "paging": false,
-    "columns": [
-      {data: "name"},
-      {data: "size"},
-      {data: "date"}
-    ]
-  });
+(function(){
+  window.current_dir = "";
+  // does datatable store the original
+  var init_table = function(url){
+    window.files_table = $('#files').DataTable({
+      // "sAjaxSource": "https://websvcs08.osc.edu/pun/dev/files/api/v1/fs/nfs/17/efranz/",
+      "sAjaxSource": url,
+      "sAjaxDataProp": "files",
+      "paging": false,
+      "columns": [
+        {class: "name", data: "name"},
+        {class: "size", data: "size"},
+        {class: "date", data: "date"}
+      ]
+    });
 
-});
+    init_click_handlers();
+  };
+
+  var init_click_handlers = function(){
+    $('#files tbody').on( 'click', 'tr', function () {
+      if ($(this).hasClass('active')) {
+        // do nothing
+      }
+      else {
+        $('#files tr.active').removeClass('active');
+        $(this).addClass('active');
+      }
+    });
+
+    $('#files tbody').on( 'dblclick', 'tr', function () {
+      var d = files_table.row(this).data()
+      if(d.size == "dir"){
+        console.log("open directory: " + d.name);
+
+        if(d.name == ".."){
+          console.log("open parent directory");
+        }
+        else{
+          cloudcmd(current_dir + "/" + d.name);
+        }
+      }
+      else{
+        console.log("view file: " + d.name);
+      }
+    });
+  };
+
+
+  window.cloudcmd = function(path){
+    var url = "https://websvcs08.osc.edu/pun/dev/files/api/v1/fs" + path;
+
+    if(typeof files_table === "undefined"){
+      init_table(url);
+    }
+    else{
+      files_table.ajax.url(url).load();
+    }
+    window.current_dir = path;
+  }
+
+
+
+
+
+
+
+})();

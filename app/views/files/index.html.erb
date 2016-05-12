@@ -2,7 +2,7 @@
 <p>Find me in app/views/files/index.html.erb</p>
 
 
-<table id="files">
+<table id="files" class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -11,3 +11,9 @@
     </tr>
   </thead>
 </table>
+
+<script>
+(function(){
+ cloudcmd("<%= @dir %>");
+})();
+</script>
