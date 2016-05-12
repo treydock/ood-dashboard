@@ -27,7 +27,9 @@
         "url" : url,
         "dataSrc" : function(json){
           window.current_dir = json.path;
-          $("h1").text(current_dir);
+          $(".dirtitle").text(current_dir);
+
+          json.files = json.files.filter(function(arg){ return ! arg.name.startsWith("."); });
 
           json.files.unshift({
             "name": "..",
@@ -43,6 +45,8 @@
       // "sAjaxDataProp": "files",
       "paging": false,
       "columns": [
+        // {class: "icon", render: function(data, type, row, meta){ return row.size == "dir" ? '<i class="fa fa-folder"></i>' : '<i class="fa fa-file"></i>'; }},
+        {class: "icon", render: function(data, type, row, meta){ return row.size == "dir" ? '<img src="https://websvcs08.osc.edu/pun/dev/files/img/dir.png" />' : '<img src="https://websvcs08.osc.edu/pun/dev/files/img/txt.png" />'; }},
         {class: "name", data: "name"},
         {class: "size", data: "size"},
         {class: "date", data: "date"}
