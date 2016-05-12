@@ -16,3 +16,17 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require_tree .
+
+$(document).ready(function(){
+  $('#files').DataTable({
+    "sAjaxSource": "https://websvcs08.osc.edu/pun/dev/files/api/v1/fs/nfs/17/efranz/",
+    "sAjaxDataProp": "files",
+    "paging": false,
+    "columns": [
+      {data: "name"},
+      {data: "size"},
+      {data: "date"}
+    ]
+  });
+
+});
