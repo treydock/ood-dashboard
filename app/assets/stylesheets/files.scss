@@ -1,3 +1,19 @@
 // Place all the styles related to the Files controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.panel-heading.dirtitle {
+  font-size: 16px;
+}
+
+
+.panel {
+  margin-top: 40px;
+  position: relative;
+}
+.panel-btns {
+  position: absolute;
+  right: 0px;
+  top: -40px;
+}
+
+
