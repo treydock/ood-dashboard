@@ -12,6 +12,8 @@ $navbar-inverse-link-color: rgb(255, 255, 255);
 @import "bootstrap";
 @import "font-awesome";
 
+@import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
+
 // Load up dataTables bootstrap specific styles
 // @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 
