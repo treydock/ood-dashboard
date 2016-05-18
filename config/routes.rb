@@ -1,7 +1,11 @@
 Dashboard::Application.routes.draw do
   resource :files
-  get "files/fs/*path" => "files#index", :defaults => { :path => "/" }
-  get "files/fs" => "files#index", :defaults => { :path => "/" }
+  # if you want to pass the .html .json .jpg etc. in the path, you would
+  # so this means a folder with a "dot" would still work; but it also means
+  # that format is not set via the URL - but I would expect headers would still
+  # work
+  get "files/fs/*path" => "files#index", :defaults => { :path => "/" }, format: false
+  get "files/fs" => "files#index", :defaults => { :path => "/" }, format: false
 
   get "apps/:owner/:app_name" => "app#show", as: "app"
   get "dashboard/index"
