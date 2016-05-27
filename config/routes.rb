@@ -1,4 +1,6 @@
 Dashboard::Application.routes.draw do
+  get "system_status/index"
+  get "system_status/show"
   get "errors/not_found"
   get "errors/internal_server_error"
   get "apps/:owner/:app_name" => "app#show", as: "app"

@@ -16,3 +16,10 @@
 // require dataTables/jquery.dataTables
 // require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require_tree .
+
+
+//FIXME:
+// copied from system status app
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
